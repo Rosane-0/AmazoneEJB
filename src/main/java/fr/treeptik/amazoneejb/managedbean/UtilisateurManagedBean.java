@@ -54,9 +54,9 @@ public class UtilisateurManagedBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         int index = event.getRowIndex();
-       
         utilisateur = utilisateurs.get(index);
         updatePF();
+        System.err.println("meth onCellEdit");
     }
 
 	
@@ -73,9 +73,9 @@ public class UtilisateurManagedBean {
 
 	public List<Utilisateur> getUtilisateurs() {
 		//ENLEVER LE IF POUR LA LIST USERS NON DYNAMIQUE
-//		if (utilisateurs.isEmpty()) {
+		if (utilisateurs.isEmpty()) {
 			utilisateurs = utilisateurService.findAll();
-//		}
+		}
 		return utilisateurs;
 	}
 
