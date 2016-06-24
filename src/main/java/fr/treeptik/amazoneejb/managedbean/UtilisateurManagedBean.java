@@ -58,7 +58,7 @@ public class UtilisateurManagedBean {
         utilisateur = utilisateurs.get(index);
         updatePF();
     }
-	
+
 	
 	//GET-SET
 
@@ -73,9 +73,9 @@ public class UtilisateurManagedBean {
 
 	public List<Utilisateur> getUtilisateurs() {
 		//ENLEVER LE IF POUR LA LIST USERS NON DYNAMIQUE
-		if (utilisateurs.isEmpty()) {
+//		if (utilisateurs.isEmpty()) {
 			utilisateurs = utilisateurService.findAll();
-		}
+//		}
 		return utilisateurs;
 	}
 
