@@ -1,0 +1,136 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../index.xhtml">
+
+	<ui:define name="pageListeUtilisateursDynamic">
+
+		<div class="container">
+
+			<h1>Liste dynamique des users</h1>
+			<h:form id="formUtilisateursDyn">
+			
+
+				<p:commandButton update="formUtilisateursDyn" icon="ui-icon-plusthick"
+					oncomplete="PF('userDialog').show()"
+					value="Ajouter un nouvel utilisateur">
+					<f:setPropertyActionListener value="#{utilisateur}"
+						target="#{utilisateurManagedBean.utilisateur}" />
+				</p:commandButton>
+				
+
+				<p:dataTable style="width:75%; text-align:center;"
+					headerClass="header" styleClass="table table-striped"
+					value="#{utilisateurManagedBean.utilisateurs}" var="utilisateur"
+					editable="true" editMode="cell" widgetVar="cellUsers" id="tableUsers">
+
+					<p:growl id="msgs" showDetail="true" />
+					
+					<p:ajax event="cellEdit"
+						listener="#{utilisateurManagedBean.onCellEdit}"
+						update="msgs tableUsers" />
+ 
+					<p:column headerText="Nom" >
+						<p:cellEditor>
+							<f:facet name="output"><h:outputText value="#{utilisateur.name}" /></f:facet>
+							<f:facet name="input"><p:inputText value="#{utilisateur.name}"></p:inputText></f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Prenom">
+						<p:cellEditor>
+							<f:facet name="output"><h:outputText value="#{utilisateur.firstName}" /></f:facet>
+							<f:facet name="input"><p:inputText value="#{utilisateur.firstName}"></p:inputText></f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Date de naissance">
+						<p:cellEditor>
+							<f:facet name="output"><h:outputText value="#{utilisateur.birthDate}" /></f:facet>
+							<f:facet name="input"><p:inputText value="#{utilisateur.birthDate}"></p:inputText></f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Login">
+						<p:cellEditor>
+							<f:facet name="output"><h:outputText value="#{utilisateur.login}" /></f:facet>
+							<f:facet name="input"><h:inputText value="#{utilisateur.login}" /></f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Actions">
+
+						<p:commandButton update="formUtilisateursDyn"
+							icon="ui-icon-closethick"
+							action="#{utilisateurManagedBean.remove()}">
+							<f:setPropertyActionListener value="#{utilisateur}"
+								target="#{utilisateurManagedBean.utilisateur}" />
+							<p:confirm header="Confirmation" message="Are you sure?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+					</p:column>
+
+
+				</p:dataTable>
+
+				<p:contextMenu for="tableUsers" widgetVar="uMenu">
+					<p:menuitem value="Edit Cell" icon="ui-icon-search"
+						onclick="PF('cellUsers').showCellEditor();return false;" />
+					<p:menuitem value="Hide Menu" icon="ui-icon-close"
+						onclick="PF('uMenu').hide()" />
+				</p:contextMenu>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<p:dialog header="Modal User Dialog" widgetVar="userDialog"
+					modal="true" width="25%">
+					<h:inputHidden value="#{utilisateurManagedBean.utilisateur.id}" />
+					<div class="form-group">
+						<label for="nom">Nom : </label>
+						<br /><h:inputText name="nom"
+							value="#{utilisateurManagedBean.utilisateur.name}" />
+					</div>
+					<div class="form-group">
+						<label for="prenom">Prenom : </label>
+						<h:inputText name="prenom"
+							value="#{utilisateurManagedBean.utilisateur.firstName}" />
+					</div>
+					<div class="form-group">
+						<label for="dateDeNaissance">Date de naissance : </label>
+						<h:inputText name="dateDeNaissance"
+							value="#{utilisateurManagedBean.utilisateur.birthDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:inputText>
+					</div>
+										<div class="form-group">
+						<label for="dateDeNaissance">Login : </label>
+						<h:inputText name="dateDeNaissance"
+							value="#{utilisateurManagedBean.utilisateur.login}">
+						</h:inputText>
+					</div>
+					<div class="form-group">
+						<label for="dateDeNaissance">Password : </label>
+						<h:inputText name="dateDeNaissance"
+							value="#{utilisateurManagedBean.utilisateur.password}">
+						</h:inputText>
+					</div>
+					<p:commandButton update="formUtilisateursDyn" value="Edit now !"
+						action="#{utilisateurManagedBean.addUtilisateur()}"
+						oncomplete="PF('userDialog').hide();" />
+				</p:dialog>
+
+			</h:form>
+
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

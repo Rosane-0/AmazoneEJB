@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8"></meta>
+	<h:outputStylesheet name="${facesContext.externalContext.requestContextPath}/resources/css/main.css"></h:outputStylesheet>
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link> -->
+</h:head>
+
+<h:body>
+
+	<div class="navbar">
+		<ui:include src="/template/navbar.xhtml" />
+	</div>
+	
+	<ui:insert name="pageUtilisateur" />
+	<ui:insert name="pageListeUtilisateurs" />
+	<ui:insert name="pageListeUtilisateursDynamic" />
+
+
+</h:body>
+
+</html>

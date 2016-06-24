@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+		<div class="container" >
+			<h:form id="navbar" >
+
+			<p:menuButton value="Utilisateurs">
+				<p:menuitem value="Liste users" url="/utilisateur/utilisateur-list.jsf"
+					icon="ui-icon-person" />
+				<p:menuitem value="Dynamic user list" url="/utilisateur/utilisateur-listDynamic.jsf"
+					icon="ui-icon-seek-next" />
+				<p:separator />
+				<p:menuitem value="Homepage" url="../index.jsf"
+					icon="ui-icon-home" />
+			</p:menuButton>
+			
+			<p:menuButton value="Articles">
+				<p:menuitem value="Ajouter un article" url="#"
+					icon="ui-icon-person" />
+				<p:separator />
+				<p:menuitem value="Rechercher un article" url="#"
+					icon="ui-icon-extlink" />
+			</p:menuButton>
+
+			<p:sticky target="navbar" />
+			
+			<p:commandButton action="#{logoutManagedBean.logout()}" value="Logout"></p:commandButton>
+
+		</h:form>
+
+
+	</div>
+
+</ui:composition>
