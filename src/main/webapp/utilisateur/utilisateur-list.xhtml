@@ -87,15 +87,15 @@
 					</div>
 					<div class="form-group">
 						<label for="login">Login </label>
-						<br /><h:inputText name="dateDeNaissance"
+						<br /><h:inputText name="login"
 							value="#{utilisateurManagedBean.utilisateur.login}">
 						</h:inputText>
 					</div>
 					<div class="form-group">
-						<label for="dateDeNaissance">Password </label>
-						<br /><h:inputText name="dateDeNaissance"
+						<label for="password">Password </label>
+						<br /><h:inputSecret name="password"
 							value="#{utilisateurManagedBean.utilisateur.password}">
-						</h:inputText>
+						</h:inputSecret>
 					</div>
 						<p:commandButton update="formUtilisateurs" value="Edit now !" action="#{utilisateurManagedBean.addUtilisateur()}" oncomplete="PF('userDialog').hide();" />
 				</p:dialog>
