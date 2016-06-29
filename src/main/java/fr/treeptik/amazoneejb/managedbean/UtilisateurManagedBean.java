@@ -3,12 +3,14 @@ package fr.treeptik.amazoneejb.managedbean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.jboss.logging.Logger;
 import org.primefaces.event.CellEditEvent;
 
 import fr.treeptik.amazoneejb.pojo.Utilisateur;
@@ -24,6 +26,18 @@ public class UtilisateurManagedBean {
 	private Utilisateur utilisateur = new Utilisateur();
 	
 	private List<Utilisateur> utilisateurs = new ArrayList<>();
+	
+	private String username;
+	
+//	private String birthdayToFormate;
+	
+	private Logger logger = Logger.getLogger(UtilisateurManagedBean.class);
+    
+    @PostConstruct
+    public void init() {
+    	username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(); //return session login
+    	logger.debug("username en cours : " + username);
+    }
 	
 	public String addUtilisateur(){
 		utilisateur = utilisateurService.add(utilisateur);
@@ -56,7 +70,23 @@ public class UtilisateurManagedBean {
         int index = event.getRowIndex();
         utilisateur = utilisateurs.get(index);
         updatePF();
-        System.err.println("meth onCellEdit");
+    }
+
+    
+    public void addRoleAdmin() {
+    	
+    }
+    
+    public void removeRoleAdmin() {
+    	
+    }
+    
+    public void viewCommandes() {
+    	
+    }
+    
+    public void findUser() {
+    	
     }
 
 	
@@ -82,6 +112,15 @@ public class UtilisateurManagedBean {
 	public void setUtilisateurs(List<Utilisateur> utilisateurs) {
 		this.utilisateurs = utilisateurs;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 
 
 }

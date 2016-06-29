@@ -19,8 +19,12 @@
 						target="#{utilisateurManagedBean.utilisateur}" />
 				</p:commandButton>
 				
+				<p:commandButton update="formUtilisateursDyn" icon="ui-icon-plusthick"
+				action="#{utilisateurManagedBean.findUser()}"
+				value="Rechercher un utilisateur">
+				</p:commandButton>
 
-				<p:dataTable style="width:75%; text-align:center;"
+				<p:dataTable style="width:100%; text-align:center;"
 					headerClass="header" styleClass="table table-striped"
 					value="#{utilisateurManagedBean.utilisateurs}" var="utilisateur"
 					editable="true" editMode="cell" widgetVar="cellUsers" id="tableUsers">
@@ -47,8 +51,8 @@
 
 					<p:column headerText="Date de naissance">
 						<p:cellEditor>
-							<f:facet name="output"><h:outputText value="#{utilisateur.birthDate}" /></f:facet>
-							<f:facet name="input"><p:inputText value="#{utilisateur.birthDate}"></p:inputText></f:facet>
+							<f:facet name="output"><h:outputText value="#{utilisateur.birthDate}" ><f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/></h:outputText></f:facet>
+							<f:facet name="input"><p:inputText value="#{utilisateur.birthDate}"><f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/></p:inputText></f:facet>
 						</p:cellEditor>
 					</p:column>
 
@@ -58,12 +62,47 @@
 							<f:facet name="input"><h:inputText value="#{utilisateur.login}"/></f:facet>
 						</p:cellEditor>
 					</p:column>
+					
+					<p:column headerText="Password">
+						<p:cellEditor>
+							<f:facet name="output"><h:outputText value="#{utilisateur.password}" /></f:facet>
+							<f:facet name="input"><h:inputSecret value="#{utilisateur.password}"/></f:facet>
+						</p:cellEditor>
+					</p:column>
+					
+					<p:column headerText="Roles">
+						<p:cellEditor>
+							<f:facet name="output"><h:outputText value="#" /></f:facet>
+							<f:facet name="input"><h:inputSecret value="#"/></f:facet>
+						</p:cellEditor>
+					</p:column>
 
 					<p:column headerText="Actions">
 
 						<p:commandButton update="formUtilisateursDyn"
 							icon="ui-icon-closethick"
-							action="#{utilisateurManagedBean.remove()}">
+							action="#{utilisateurManagedBean.remove()}"
+							title="Delete User">
+							<f:setPropertyActionListener value="#{utilisateur}"
+								target="#{utilisateurManagedBean.utilisateur}" />
+							<p:confirm header="Confirmation" message="Are you sure?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						<p:commandButton update="formUtilisateursDyn"
+							icon="ui-icon-plusthick"
+							action="#{utilisateurManagedBean.addRoleAdmin()}"
+							value="R" title="Add role">
+							<f:setPropertyActionListener value="#{utilisateur}"
+								target="#{utilisateurManagedBean.utilisateur}" />
+							<p:confirm header="Confirmation" message="Are you sure?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						<p:commandButton update="formUtilisateursDyn"
+							icon="ui-icon-plusthick"
+							action="#{utilisateurManagedBean.viewCommandes()}"
+							value="C" title="View commandes">
 							<f:setPropertyActionListener value="#{utilisateur}"
 								target="#{utilisateurManagedBean.utilisateur}" />
 							<p:confirm header="Confirmation" message="Are you sure?"
@@ -110,7 +149,7 @@
 							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
 						</h:inputText>
 					</div>
-										<div class="form-group">
+					<div class="form-group">
 						<label for="login">Login : </label>
 						<h:inputText name="login"
 							value="#{utilisateurManagedBean.utilisateur.login}" required="true">
