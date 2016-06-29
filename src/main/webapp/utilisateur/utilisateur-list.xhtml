@@ -30,7 +30,7 @@
 					</p:column>
 
 					<p:column headerText="Date de naissance">
-							<h:outputText value="#{utilisateur.birthDate}" />
+							<h:outputText value="#{utilisateur.birthDate}"><f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/></h:outputText>
 					</p:column>
 					
 					<p:column headerText="Login">

@@ -6,9 +6,10 @@
 
 
 		<div class="container" >
+		
 			<h:form id="navbar" >
 
-			<p:menuButton value="Utilisateurs">
+			<p:menuButton value="Utilisateurs" rendered="#{utilisateurManagedBean.username == 'admin'}">
 				<p:menuitem value="Liste users" url="/utilisateur/utilisateur-list.jsf"
 					icon="ui-icon-person" />
 				<p:menuitem value="Dynamic user list" url="/utilisateur/utilisateur-listDynamic.jsf"
@@ -37,13 +38,13 @@
 			</p:menuButton>
 			
 			<p:menuButton value="About">
-				<p:menuitem value="" url="#"
+				<p:menuitem value="何..." url="#"
 					icon="ui-icon-help" />
 			</p:menuButton>
 
 			<p:sticky target="navbar" />
 			
-			<p:commandButton action="#{logoutManagedBean.logout()}" value="Logout"></p:commandButton>
+			<p:commandButton style="float:right" action="#{logoutManagedBean.logout()}" value="出口 Logout" />
 
 		</h:form>
 

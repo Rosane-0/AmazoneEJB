@@ -1,5 +1,6 @@
 package fr.treeptik.amazoneejb.managedbean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,78 +19,72 @@ import fr.treeptik.amazoneejb.service.UtilisateurService;
 
 @ManagedBean
 @RequestScoped
-public class UtilisateurManagedBean {
-	
+public class UtilisateurManagedBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@EJB
 	public UtilisateurService utilisateurService;
-	
+
 	private Utilisateur utilisateur = new Utilisateur();
-	
+
 	private List<Utilisateur> utilisateurs = new ArrayList<>();
-	
+
 	private String username;
-	
-//	private String birthdayToFormate;
-	
+
 	private Logger logger = Logger.getLogger(UtilisateurManagedBean.class);
-    
-    @PostConstruct
-    public void init() {
-    	username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(); //return session login
-    	logger.debug("username en cours : " + username);
-    }
-	
+
+	@PostConstruct
+	public void init() {
+		username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(); //return session login
+	}
+
 	public String addUtilisateur(){
 		utilisateur = utilisateurService.add(utilisateur);
 		utilisateurService.addRoleUserDefault(utilisateur);
 		utilisateur = new Utilisateur();
-		return "utilisateur-list";
+		return "utilisateur-listDynamic";
 	}
-	
-	public String ajouterNouvelUtilisateur() {
-		utilisateur = new Utilisateur();
-		return "utilisateur";
-	}
-	  
-    //Avec AJAX, pas de return
-    public void remove(){
+
+	//Avec AJAX, pas de return
+	public void remove(){
 		utilisateurService.remove(utilisateur);
-    }
-    
-    public void updatePF(){
-    	utilisateurService.update(utilisateur);
-    }
-    
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        int index = event.getRowIndex();
-        utilisateur = utilisateurs.get(index);
-        updatePF();
-    }
+	}
 
-    
-    public void addRoleAdmin() {
-    	
-    }
-    
-    public void removeRoleAdmin() {
-    	
-    }
-    
-    public void viewCommandes() {
-    	
-    }
-    
-    public void findUser() {
-    	
-    }
+	public void updatePF(){
+		utilisateurService.update(utilisateur);
+	}
 
-	
+	public void onCellEdit(CellEditEvent event) {
+		Object oldValue = event.getOldValue();
+		Object newValue = event.getNewValue();
+		if(newValue != null && !newValue.equals(oldValue)) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		int index = event.getRowIndex();
+		utilisateur = utilisateurs.get(index);
+		updatePF();
+	}
+
+
+	public void addRoleAdmin() {
+
+	}
+
+	public void removeRoleAdmin() {
+
+	}
+
+	public void viewCommandes() {
+
+	}
+
+	public void findUser() {
+
+	}
+
+
 	//GET-SET
 
 
@@ -102,10 +97,7 @@ public class UtilisateurManagedBean {
 	}
 
 	public List<Utilisateur> getUtilisateurs() {
-		//ENLEVER LE IF POUR LA LIST USERS NON DYNAMIQUE
-		if (utilisateurs.isEmpty()) {
-			utilisateurs = utilisateurService.findAll();
-		}
+		utilisateurs = utilisateurService.findAll();
 		return utilisateurs;
 	}
 
