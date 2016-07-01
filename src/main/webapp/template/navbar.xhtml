@@ -20,9 +20,7 @@
 			</p:menuButton>
 			
 			<p:menuButton value="Articles">
-				<p:menuitem value="Liste des articles" url="#"
-					icon="ui-icon-tag" />
-				<p:menuitem value="Ajouter un article" url="#"
+				<p:menuitem value="Liste des articles" url="/article/article-list.jsf"
 					icon="ui-icon-tag" />
 				<p:separator />
 				<p:menuitem value="Rechercher un article" url="#"
@@ -38,9 +36,9 @@
 			</p:menuButton>
 			
 			<p:menuButton value="About">
-				<p:menuitem value="何..." url="#"
-					icon="ui-icon-help" />
+				<p:menuitem value="何..." url="#" />
 			</p:menuButton>
+			<h:outputText value="Bonjour #{utilisateurManagedBean.username} !" />
 
 			<p:sticky target="navbar" />
 			

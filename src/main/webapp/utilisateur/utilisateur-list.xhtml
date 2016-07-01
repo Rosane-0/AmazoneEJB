@@ -5,55 +5,60 @@
 	xmlns:p="http://primefaces.org/ui" template="../index.xhtml">
 
 	<ui:define name="pageListeUtilisateurs">
-	
+
 		<div class="container">
-		
-		<h1>Liste des users</h1>
-		<h:form id="formUtilisateurs">
-		
+
+			<h1>Liste des users</h1>
+			<h:form id="formUtilisateurs">
+
 				<p:commandButton update="formUtilisateurs" icon="ui-icon-plusthick"
-					oncomplete="PF('userDialog').show()" value="Ajouter un nouvel utilisateur">
+					oncomplete="PF('userDialog').show()"
+					value="Ajouter un nouvel utilisateur">
 					<f:setPropertyActionListener value="#{utilisateur}"
 						target="#{utilisateurManagedBean.utilisateur}" />
 				</p:commandButton>
 
-				<p:dataTable style="width:75%; text-align:center;" headerClass="header"
-				styleClass="table table-striped"
-				value="#{utilisateurManagedBean.utilisateurs}" var="utilisateur" >
+				<p:dataTable style="width:75%; text-align:center;"
+					headerClass="header" styleClass="table table-striped"
+					value="#{utilisateurManagedBean.utilisateurs}" var="utilisateur">
 
 					<p:column headerText="Nom">
-							<h:outputText value="#{utilisateur.name}" />
+						<h:outputText value="#{utilisateur.name}" />
 					</p:column>
 
 					<p:column headerText="Prenom">
-							<h:outputText value="#{utilisateur.firstName}" />
+						<h:outputText value="#{utilisateur.firstName}" />
 					</p:column>
 
 					<p:column headerText="Date de naissance">
-							<h:outputText value="#{utilisateur.birthDate}"><f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/></h:outputText>
-					</p:column>
-					
-					<p:column headerText="Login">
-							<h:outputText value="#{utilisateur.login}" />
+						<h:outputText value="#{utilisateur.birthDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Editions" >
-					
-						<p:commandButton
-						update="formUtilisateurs" icon="ui-icon-pencil"
-						oncomplete="PF('userDialog').show()" >
-							<f:setPropertyActionListener value="#{utilisateur}"
-								target="#{utilisateurManagedBean.utilisateur}" />
-						</p:commandButton>
-						
-						<p:commandButton update="formUtilisateurs" icon="ui-icon-closethick" action="#{utilisateurManagedBean.remove()}">
-							<f:setPropertyActionListener value="#{utilisateur}"
-								target="#{utilisateurManagedBean.utilisateur}" />
-								<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-						</p:commandButton>
-						
+					<p:column headerText="Login">
+						<h:outputText value="#{utilisateur.login}" />
 					</p:column>
-	
+
+					<p:column headerText="Editions">
+
+						<p:commandButton update="formUtilisateurs" icon="ui-icon-pencil"
+							oncomplete="PF('userDialog').show()">
+							<f:setPropertyActionListener value="#{utilisateur}"
+								target="#{utilisateurManagedBean.utilisateur}" />
+						</p:commandButton>
+
+						<p:commandButton update="formUtilisateurs"
+							icon="ui-icon-closethick"
+							action="#{utilisateurManagedBean.remove()}">
+							<f:setPropertyActionListener value="#{utilisateur}"
+								target="#{utilisateurManagedBean.utilisateur}" />
+							<p:confirm header="Confirmation" message="Are you sure?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+					</p:column>
+
 
 				</p:dataTable>
 
@@ -65,46 +70,52 @@
 				</p:confirmDialog>
 
 				<p:dialog header="Modal User Dialog" widgetVar="userDialog"
-					modal="true" width="25%" > 
-					<h:inputHidden
-						value="#{utilisateurManagedBean.utilisateur.id}" />
-					<div class="form-group">
-						<label for="nom">Nom </label>
-						<br /><h:inputText name="nom"
-							value="#{utilisateurManagedBean.utilisateur.name}" />
-					</div>
-					<div class="form-group">
-						<label for="prenom">Prenom </label>
-						<br /><h:inputText name="prenom"
-							value="#{utilisateurManagedBean.utilisateur.firstName}" />
-					</div>
-					<div class="form-group">
-						<label for="dateDeNaissance">Date de naissance </label>
-						<br /><h:inputText name="dateDeNaissance"
-							value="#{utilisateurManagedBean.utilisateur.birthDate}">
-							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
-						</h:inputText>
-					</div>
-					<div class="form-group">
-						<label for="login">Login </label>
-						<br /><h:inputText name="login"
-							value="#{utilisateurManagedBean.utilisateur.login}">
-						</h:inputText>
-					</div>
-					<div class="form-group">
-						<label for="password">Password </label>
-						<br /><h:inputSecret name="password"
-							value="#{utilisateurManagedBean.utilisateur.password}">
-						</h:inputSecret>
-					</div>
-						<p:commandButton update="formUtilisateurs" value="Edit now !" action="#{utilisateurManagedBean.addUtilisateur()}" oncomplete="PF('userDialog').hide();" />
+					modal="true" width="50%">
+
+					<h:inputHidden value="#{utilisateurManagedBean.utilisateur.id}" />
+
+					<h:panelGrid columns="2">
+
+						<div class="form-group">
+							<label for="nom">Nom : </label>
+							<h:inputText name="nom"
+								value="#{utilisateurManagedBean.utilisateur.name}" />
+						</div>
+						<div class="form-group">
+							<label for="prenom">Prenom : </label>
+							<h:inputText name="prenom"
+								value="#{utilisateurManagedBean.utilisateur.firstName}" />
+						</div>
+						<div class="form-group">
+							<label for="dateDeNaissance">Date de naissance : </label>
+							<h:inputText name="dateDeNaissance"
+								value="#{utilisateurManagedBean.utilisateur.birthDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+							</h:inputText>
+						</div>
+						<div class="form-group">
+							<label for="login">Login : </label>
+							<h:inputText name="login"
+								value="#{utilisateurManagedBean.utilisateur.login}">
+							</h:inputText>
+						</div>
+						<div class="form-group">
+							<label for="password">Password : </label>
+							<h:inputSecret name="password"
+								value="#{utilisateurManagedBean.utilisateur.password}">
+							</h:inputSecret>
+						</div>
+					</h:panelGrid>
+					<p:commandButton update="formUtilisateurs" value="Edit now !"
+						action="#{utilisateurManagedBean.addUtilisateur()}"
+						oncomplete="PF('userDialog').hide();" />
 				</p:dialog>
 
 			</h:form>
-		
+
 		</div>
 
-	
+
 	</ui:define>
 
 </ui:composition>

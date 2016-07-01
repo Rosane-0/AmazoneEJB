@@ -1,10 +1,10 @@
 package fr.treeptik.amazoneejb.pojo;
 
-//import javax.persistence.DiscriminatorValue;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-//@DiscriminatorValue("dvd")
+@DiscriminatorValue("dvd")
 public class DVD extends Article {
 	
 	private static final long serialVersionUID = 1L;

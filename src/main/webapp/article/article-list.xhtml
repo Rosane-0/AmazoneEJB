@@ -1,0 +1,180 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../index.xhtml">
+
+	<ui:define name="pageListeArticles">
+
+		<div class="container">
+
+			<h1>Catalogue des articles</h1>
+
+			<h:form>
+				<p:commandButton icon="ui-icon-plusthick" value="Add an article now !"
+					oncomplete="PF('articleDialog').show()">
+					<f:setPropertyActionListener value="#{article}"
+						target="#{articleManagedBean.article}" />
+				</p:commandButton>
+			</h:form>
+
+			<h:form id="tableArticles-form">
+
+				<p:dataTable headerClass="header" styleClass="table table-striped"
+					value="#{articleManagedBean.articles}" var="article" editable="true" editMode="cell"
+					widgetVar="cellArticles" id="tableArticle">
+
+					<p:growl id="msgs" showDetail="true" />
+
+					<p:column headerText="Type">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{article.type}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#{article.type}"></h:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="titre">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#"></h:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="prix(€)">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#"></h:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="date de sortie">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#"></h:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<p:dialog header="Modal Article Dialog" widgetVar="articleDialog"
+					modal="true" width="50%">
+					
+					<h:inputHidden value="#{articleManagedBean.article.id}" />
+					
+					<h:panelGrid columns="2">
+					
+						<label for="type"> Article : </label>
+						<p:selectOneMenu id="menuArticle"
+							value="#{articleManagedBean.type}" label="Articles" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:250px" >
+							<f:selectItem itemLabel="..." itemValue="..." noSelectionOption="true"/>
+							<f:selectItems value="#{articleManagedBean.classesArticle}" />
+							<p:ajax update="gridContainerLivre gridContainerDVD" event="change" ></p:ajax>
+						</p:selectOneMenu>
+
+						<label for="titre">Titre : </label>
+						<h:inputText name="titre"
+							value="#{articleManagedBean.article.titre}">
+						</h:inputText>
+
+						<label for="prix">Prix (€) : </label>
+						<h:inputText name="prix"
+							value="#{articleManagedBean.article.prix}">
+						</h:inputText>
+
+						<label for="dateSortie">Date de sortie : </label>
+						<h:inputText name="dateSortie"
+							value="#{articleManagedBean.article.dateSortie}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:inputText>
+						<label for="genre">Genre : </label>
+						<h:inputText name="genre"
+							value="#{articleManagedBean.article.genre}">
+						</h:inputText>
+						
+					</h:panelGrid>
+					
+					<p:outputPanel id="gridContainerLivre" layout="block">
+						<h:inputHidden value="#{articleManagedBean.dvd.id}" />
+
+						<p:panelGrid id="livrePanel" columns="2"
+							rendered="#{articleManagedBean.type == 'Livre'}">
+
+							<label for="auteur">Auteur : </label>
+							<h:inputText name="auteur"
+								value="#{articleManagedBean.livre.auteur}">
+							</h:inputText>
+
+							<label for="isbn">ISBN : </label>
+							<h:inputText name="isbn"
+								value="#{articleManagedBean.livre.isbn}">
+							</h:inputText>
+
+							<label for="editeur">Editeur : </label>
+							<h:inputText name="editeur"
+								value="#{articleManagedBean.livre.editeur}">
+							</h:inputText>
+
+							<label for="nbPages">Nb Pages : </label>
+							<h:inputText name="nbPages"
+								value="#{articleManagedBean.livre.nbPages}">
+							</h:inputText>
+
+						</p:panelGrid>
+					</p:outputPanel>
+
+					<p:outputPanel id="gridContainerDVD" layout="block">
+						<p:panelGrid id="dvdPanel" columns="2" rendered="#{articleManagedBean.type == 'DVD'}">
+
+							<label for="dureeMinutes">Durée (min) : </label>
+							<h:inputText name="dureeMinutes"
+								value="#{articleManagedBean.dvd.dureeMinutes}">
+							</h:inputText>
+
+							<label for="realisateur">Réalisateur : </label>
+							<h:inputText name="realisateur"
+								value="#{articleManagedBean.dvd.realisateur}">
+							</h:inputText>
+
+							<label for="description">Description : </label>
+							<h:inputText name="description"
+								value="#{articleManagedBean.dvd.description}">
+							</h:inputText>
+						</p:panelGrid>
+					</p:outputPanel>
+
+					<p:commandButton style="float: Right" value="Edit now !"
+						action="#{articleManagedBean.addArticleToJMSQueue()}"
+						update="tableArticles-form"
+						oncomplete="PF('articleDialog').hide();" />
+						
+				</p:dialog>
+
+			</h:form>
+
+		</div>
+
+	</ui:define>
+
+
+</ui:composition>

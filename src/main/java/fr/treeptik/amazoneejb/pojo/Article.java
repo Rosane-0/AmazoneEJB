@@ -2,9 +2,10 @@ package fr.treeptik.amazoneejb.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 //import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,9 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-//@DiscriminatorColumn(name="type")
-public abstract class Article implements Serializable  {
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type")
+public class Article implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -35,6 +36,9 @@ public abstract class Article implements Serializable  {
 	
 	@ManyToMany(mappedBy = "articles", fetch=FetchType.LAZY)
 	private Set<Commande> commandes;
+	
+	@Column(name = "type", insertable = false, updatable = false)
+	private String type;
 	
 	public Long getId() {
 		return id;
@@ -72,9 +76,13 @@ public abstract class Article implements Serializable  {
 	public void setCommandes(Set<Commande> commandes) {
 		this.commandes = commandes;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 
-	
-	
- 
+
 
 }

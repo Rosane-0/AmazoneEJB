@@ -7,11 +7,11 @@ import fr.treeptik.amazoneejb.pojo.Utilisateur;
 
 public interface UtilisateurService {
 	
-	Utilisateur add(Utilisateur utilisateur);
-	Utilisateur update(Utilisateur utilisateur);
-	Utilisateur findById(Long id);
-	void remove(Utilisateur utilisateur);
-	List<Utilisateur> findAll();
+	Utilisateur add(Utilisateur utilisateur) throws ServiceException;
+	Utilisateur update(Utilisateur utilisateur) throws ServiceException;
+	Utilisateur findById(Long id) throws ServiceException;
+	void remove(Utilisateur utilisateur) throws ServiceException;
+	List<Utilisateur> findAll() throws ServiceException;
 	Utilisateur addRoleUserDefault(Utilisateur utilisateur) throws ServiceException;
 
 }

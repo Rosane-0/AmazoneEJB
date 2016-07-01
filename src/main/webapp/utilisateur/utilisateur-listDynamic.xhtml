@@ -56,12 +56,12 @@
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{utilisateur.birthDate}">
-<!-- 									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" /> -->
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
 								</h:outputText>
 							</f:facet>
 							<f:facet name="input">
 								<h:inputText value="#{utilisateur.birthDate}">
-<!-- 									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" /> -->
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
 								</h:inputText>
 							</f:facet>
 						</p:cellEditor>
@@ -164,7 +164,10 @@
 							value="#{utilisateurManagedBean.utilisateur.password}">
 						</h:inputSecret>
 					</div>
-						<p:commandButton update="formUtilisateursDyn tableUsers" value="Edit now !" action="#{utilisateurManagedBean.addUtilisateur()}" oncomplete="PF('userDialog').hide();" />
+					<p:commandButton update="formUtilisateursDyn tableUsers"
+						value="Edit now !"
+						action="#{utilisateurManagedBean.addUtilisateur()}"
+						oncomplete="PF('userDialog').hide();" />
 				</p:dialog>
 
 			</h:form>
